@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://w.soundcloud.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob: data:; frame-src https://w.soundcloud.com; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<title>Sonar</title>
+<meta name="theme-color" content="#0a0914">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Sonar">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <div class="shell">
+    <aside class="side" id="side" aria-label="Разделы"></aside>
+    <main class="main">
+      <div class="topbar">
+        <div class="search">
+          <span class="si" id="siIcon"></span>
+          <input id="q" type="text" placeholder="Найти трек или вставить ссылку Spotify, SoundCloud" autocomplete="off" spellcheck="false" aria-label="Поиск или ссылка">
+          <button class="icon-btn clr" id="qClear" aria-label="Очистить" hidden></button>
+        </div>
+        <button class="btn" id="upBtn"><span id="upIcon" style="display:flex"></span><span class="lbl">Загрузить</span></button>
+        <button class="btn gold" id="subBtn"><span id="subIcon" style="display:flex"></span><span class="lbl" id="subLbl">SonarArtist+</span></button>
+        <input type="file" id="file" accept="audio/*,.mp3,.m4a,.aac,.flac,.wav,.ogg,.oga,.opus" multiple hidden>
+        <input type="file" id="fileEp" accept="audio/*,.mp3,.m4a,.aac,.flac,.wav,.ogg,.oga,.opus" multiple hidden>
+      </div>
+      <div class="content" id="content" data-mode="list"></div>
+    </main>
+  </div>
+
+  <div class="scdock" id="scDock" hidden><iframe id="scFrame" title="SoundCloud" allow="autoplay" scrolling="no" frameborder="0"></iframe></div>
+
+  <footer class="player" id="player">
+    <div class="np">
+      <div class="cover" id="npCover"></div>
+      <div class="ttxt"><div class="ttitle" id="npTitle">Ничего не играет</div><div class="tart" id="npArtist">Выберите трек в списке</div></div>
+      <button class="icon-btn" id="npFav" aria-label="В любимые"></button>
+      <a class="icon-btn yt" id="npYt" target="_blank" rel="noopener" aria-label="Найти клип на YouTube" title="Найти клип на YouTube" hidden></a>
+    </div>
+    <div class="ctl">
+      <div class="btns">
+        <button class="icon-btn" id="bShuffle" aria-label="Перемешать" aria-pressed="false"></button>
+        <button class="icon-btn" id="bPrev" aria-label="Предыдущий"></button>
+        <button class="icon-btn txt" id="bBack" aria-label="Назад на 15 секунд" hidden>−15</button>
+        <button class="play-btn" id="bPlay" aria-label="Играть"></button>
+        <button class="icon-btn txt" id="bFwd" aria-label="Вперёд на 30 секунд" hidden>+30</button>
+        <button class="icon-btn" id="bNext" aria-label="Следующий"></button>
+        <button class="icon-btn" id="bRepeat" aria-label="Повтор"></button>
+        <button class="icon-btn txt" id="bSpeed" aria-label="Скорость воспроизведения" hidden>1×</button>
+      </div>
+      <div class="seek">
+        <span class="time" id="tCur">0:00</span>
+        <input type="range" id="seek" min="0" max="1000" value="0" step="1" aria-label="Перемотка">
+        <span class="time" id="tDur">0:00</span>
+      </div>
+    </div>
+    <div class="vol">
+      <button class="icon-btn" id="bMute" aria-label="Выключить звук"></button>
+      <input type="range" id="vol" min="0" max="100" value="80" aria-label="Громкость">
+    </div>
+  </footer>
+</div>
+<div id="modal" aria-hidden="true"></div>
+<div id="drop">Отпустите файлы, чтобы добавить их в библиотеку</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="https://w.soundcloud.com/player/api.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
